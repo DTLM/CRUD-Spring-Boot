@@ -1,8 +1,11 @@
 package com.ThiagoLMartins.CRUD.service;
 
+import org.springframework.stereotype.Component;
+
 import com.ThiagoLMartins.CRUD.modal.Usuario;
 
-public interface IUsuarioService {
+@Component
+public interface IUsuarioService{
 
 	void validarEmail(String email) throws Exception;
 	

@@ -12,9 +12,10 @@ import com.ThiagoLMartins.CRUD.service.IUsuarioService;
 @Service
 public class UsuarioService implements IUsuarioService{
 
-	@Autowired
+	
 	private UsuarioRepository dao;
 	
+	@Autowired
 	public UsuarioService(UsuarioRepository dao) {
 		super();
 		this.dao = dao;

@@ -30,6 +30,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * O @AutoConfigureTestDatabase(replace = Replace.NONE) é instanciado dentro do DataJpaTest para criar um banco em memoria, mas já temos nossas configurações
  * para o H2, então usa-se essa anotação para dizer ao DataJpaTest que não altere nada da configuração que fizemos para o banco e que use a que já existe.
  * 
+ * 
+ * Sobre o entityManegerTest: É utilizado para realizar processos genericos, caso queira fazer consulta ou teste de serviços é necessario usar uma classe
+ * personalizada.
+ * 
  * @author Thiago Leal Martins
  *
  */
@@ -41,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UsuarioRepositoryTest {
 
 	@Autowired
-	UsuarioRepository repository;
+	private UsuarioRepository repository;
 	
 	@Autowired
 	private TestEntityManager maneger;
@@ -53,7 +57,7 @@ public class UsuarioRepositoryTest {
 			usu.setNome("teste");
 			usu.setEmail("teste@gmail.com");
 			usu.setSenha("123");
-			repository.save(usu);
+			maneger.persist(usu);
 			Boolean result = repository.existsByEmail(usu.getEmail());
 			assertThat(result).isTrue();
 			assertTrue(result);
