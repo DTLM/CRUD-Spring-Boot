@@ -3,7 +3,7 @@ package com.ThiagoLMartins.CRUD;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.ThiagoLMartins"})
+@SpringBootApplication(scanBasePackages = {"com.ThiagoLMartins.CRUD"})
 public class CrudApplication {
 
 	public static void main(String[] args) {
