@@ -3,6 +3,7 @@ package com.ThiagoLMartins.CRUD.controler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +21,23 @@ public class UsuarioControler {
 	private IUsuarioService usuarioService;
 	
 	@PostMapping(path = "/salvar")
-	public ResponseEntity SalvarUsuario(@RequestBody UsuarioHelper usuario ) {
+	public ResponseEntity salvarUsuario(@RequestBody UsuarioHelper usuario ) {
 		try {
 			Usuario usu = usuarioService.cadastrar(usuario);
 			return new ResponseEntity(usu, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PatchMapping(path = "/editar")
+	public ResponseEntity editarUsuario(@RequestBody UsuarioHelper usuario ) {
+		try {
+			Usuario usu = usuarioService.editarUsuarioById(usuario);
+			return new ResponseEntity(usu, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}

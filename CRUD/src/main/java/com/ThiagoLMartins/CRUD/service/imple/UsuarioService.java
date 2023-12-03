@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ThiagoLMartins.CRUD.exception.UsuarioExisteException;
+import com.ThiagoLMartins.CRUD.exception.UsuarioNotFoundException;
 import com.ThiagoLMartins.CRUD.helper.UsuarioHelper;
-import com.ThiagoLMartins.CRUD.mapper.UsuarioMapper;
 import com.ThiagoLMartins.CRUD.modal.Usuario;
 import com.ThiagoLMartins.CRUD.repository.UsuarioRepository;
 import com.ThiagoLMartins.CRUD.service.IUsuarioService;
+import com.ThiagoLMartins.CRUD.util.Util;
 
 @Service
 public class UsuarioService implements IUsuarioService {
@@ -18,8 +20,6 @@ public class UsuarioService implements IUsuarioService {
 	@Autowired
 	private UsuarioRepository dao;
 
-//	@Autowired
-//	private UsuarioMapper usuarioMapper;
 
 	public UsuarioService(UsuarioRepository dao) {
 		this.dao = dao;
@@ -34,12 +34,17 @@ public class UsuarioService implements IUsuarioService {
 	}
 
 	@Override
-	public Usuario cadastrar(UsuarioHelper usuario) {
+	public Usuario cadastrar(UsuarioHelper usuario) throws UsuarioExisteException {
 		Usuario usu = null;
-		if (usuario != null) {
+		boolean verificacao = this.existsByEmail(usuario.getEmail());
+		if (usuario != null && !verificacao) {
 			usu = new Usuario();
-//			usuarioMapper.updateUsuarioFromHelper(usuario, usu);
+			usu.setEmail(usuario.getEmail());
+			usu.setNome(usuario.getNome());
+			usu.setSenha(usuario.getSenha());
 			usu = dao.save(usu);
+		} else {
+			throw new UsuarioExisteException("Usuario já cadastrado com esse email");
 		}
 		return usu;
 	}
@@ -61,8 +66,10 @@ public class UsuarioService implements IUsuarioService {
 		if (opt.isPresent()) {
 			this.validarEmail(usuario.getEmail());
 			usu = opt.get();
-//			usuarioMapper.updateUsuarioFromHelper(usuario, usu);
+			usu = Util.atualizarClasse(usuario, usu, Usuario.class);
 			usu = this.dao.save(usu);
+		} else {
+			throw new UsuarioNotFoundException("Usuário não encontrado com esse ID.");
 		}
 		return usu;
 	}
