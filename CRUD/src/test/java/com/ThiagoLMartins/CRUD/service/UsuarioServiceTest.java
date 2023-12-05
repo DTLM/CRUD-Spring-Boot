@@ -35,7 +35,7 @@ public class UsuarioServiceTest {
 	
 	/**
 	 * Ou mokando os testes. Mokar é o ato de criar uma classe falsa, que nos dizemos o que deve retornar. Sem executar a query.
-	 * Mocks são utilizados em testes de integração.
+	 * Mocks são utilizados em testes de unitarios, afim de evitar a ida do sistema ao banco de dados.
 	 * 
 	 * O {@MockBean} é uma anotação como autowired, onde o spring fica-ra a cargo de iniciar o mock.
 	 */
