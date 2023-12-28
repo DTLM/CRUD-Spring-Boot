@@ -16,6 +16,8 @@ public interface IUsuarioService{
 	
 	List<Usuario> listAll();
 	
+	Usuario getById(Long id);
+	
 	Usuario editarUsuarioById(UsuarioHelper usuario) throws Exception;
 	
 	void deletarUsuarioById(Long id);

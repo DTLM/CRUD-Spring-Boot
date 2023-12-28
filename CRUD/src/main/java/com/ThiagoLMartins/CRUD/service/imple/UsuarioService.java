@@ -28,7 +28,7 @@ public class UsuarioService implements IUsuarioService {
 	@Override
 	public void validarEmail(String email) throws Exception {
 		Optional<Usuario> aux = dao.findByEmail(email);
-		if (aux != null) {
+		if (aux != null && aux.get() != null) {
 			throw new Exception("Email já utilizado.");
 		}
 	}
@@ -77,5 +77,11 @@ public class UsuarioService implements IUsuarioService {
 	@Override
 	public void deletarUsuarioById(Long id) {
 		this.dao.deleteById(id);
+	}
+
+	@Override
+	public Usuario getById(Long id) {
+		Optional<Usuario> usuario = dao.findById(id);
+		return  usuario != null && usuario.isPresent()? usuario.get() : null;
 	}
 }
