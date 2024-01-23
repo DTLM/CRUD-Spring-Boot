@@ -39,7 +39,6 @@ import com.ThiagoLMartins.CRUD.repository.UsuarioRepository;
 import com.ThiagoLMartins.CRUD.service.imple.UsuarioService;
 
 @ExtendWith(value = SpringExtension.class)
-@ExtendWith(value = MockitoExtension.class)
 @ActiveProfiles("testes")
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
@@ -56,8 +55,11 @@ public class UsuarioServiceTest {
 	 * Ou mokando os testes. Mokar é o ato de criar uma classe falsa, que nos dizemos o que deve retornar. Sem executar a query.
 	 * Mocks são utilizados em testes unitarios, afim de evitar a ida do sistema ao banco de dados.
 	 * 
-	 * O {@MockBean} é uma anotação como autowired, onde o spring fica-ra a cargo de iniciar o mock.
+	 * O {@link @MockBean} é uma anotação como autowired, onde o spring fica-ra a cargo de iniciar o mock.
 	 * Mesma coisa com o {@link @SpyBean}
+	 * 
+	 * A diferença entr Spy e Mock é apenas que o Mock nunca entra na classe que está mokando, mas o spy entra e faz o fluxo, a não ser que
+	 * o resultado da função seja informado seja informado
 	 */
 	private UsuarioService service; // esse é um mock
 	@SpyBean
