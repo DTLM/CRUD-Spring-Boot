@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * para o H2, então usa-se essa anotação para dizer ao DataJpaTest que não altere nada da configuração que fizemos para o banco e que use a que já existe.
  * 
  * 
- * Sobre o entityManegerTest: É utilizado para realizar processos genericos, caso queira fazer consulta ou teste de serviços é necessario usar uma classe
+ * Sobre o entityManagerTest: É utilizado para realizar processos genericos, caso queira fazer consulta ou teste de serviços é necessario usar uma classe
  * personalizada.
  * 
  * @author Thiago Leal Martins
@@ -48,7 +48,7 @@ public class UsuarioRepositoryTest {
 	private UsuarioRepository repository;
 	
 	@Autowired
-	private TestEntityManager maneger;
+	private TestEntityManager manager;
 	
 	@Test
 	public void findByEmailTeste() {
@@ -57,7 +57,7 @@ public class UsuarioRepositoryTest {
 			usu.setNome("teste");
 			usu.setEmail("teste@gmail.com");
 			usu.setSenha("123");
-			maneger.persist(usu);
+			manager.persist(usu);
 			Boolean result = repository.existsByEmail(usu.getEmail());
 			assertThat(result).isTrue();
 			assertTrue(result);
